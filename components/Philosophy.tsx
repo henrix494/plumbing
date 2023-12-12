@@ -2,10 +2,10 @@ import Image from "next/image";
 export default function Philosophy() {
   return (
     <section className=" relative max-xl:flex max-xl:justify-center max-xl:mt-8  ">
-      <div className=" w-[80vw] h-[600px] bg-[#001029] absolute right-[-20px] flex max-xl:static max-xl:flex max-xl:flex-col">
+      <div className=" w-[80vw] max-lg:w-[90vw] h-[600px] bg-[#001029] absolute right-[-20px] flex max-xl:static max-xl:flex max-xl:flex-col">
         <div className=" text-white flex flex-col items-center justify-center flex-grow max-xl:order-1">
           <div className=" text-right max-w-[80%] flex flex-col gap-5 max-xl:text-center">
-            <p className=" text-6xl font-bold">
+            <p className=" text-6xl font-bold max-lg:text-4xl">
               {" "}
               <span className=" text-[#018AFF]">הפילוסופיה </span>שלנו
             </p>

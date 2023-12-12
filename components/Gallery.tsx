@@ -49,9 +49,8 @@ export default function Gallery() {
     const viewportWidth = window.innerWidth;
     setImageWidth(viewportWidth);
     setIsMobile(viewportWidth <= 800);
-    if (!isMobile) {
-      updateIndex(currentIndex + 1);
-    }
+
+    updateIndex(currentIndex + 1);
   }, []);
 
   return (
