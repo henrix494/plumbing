@@ -41,10 +41,7 @@ export default function Gallery() {
   };
 
   useEffect(() => {
-    const intervalId = setInterval(
-      () => updateIndex(currentIndex + 1),
-      4000000
-    );
+    const intervalId = setInterval(() => updateIndex(currentIndex + 1), 6000);
     console.log(images);
     return () => clearInterval(intervalId);
   }, [currentIndex]);
