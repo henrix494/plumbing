@@ -8,7 +8,7 @@
 import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
 import { motion, useAnimation } from "framer-motion";
-
+import "./Gallery.css";
 const initialImages = ["/oneOne.jpg", "/imgTwo.jpg", "/imgThree.jpg"];
 
 export default function Gallery() {
@@ -41,17 +41,20 @@ export default function Gallery() {
   };
 
   useEffect(() => {
-    const intervalId = setInterval(() => updateIndex(currentIndex + 1), 4000);
+    const intervalId = setInterval(
+      () => updateIndex(currentIndex + 1),
+      4000000
+    );
+    console.log(images);
     return () => clearInterval(intervalId);
   }, [currentIndex]);
-
   useEffect(() => {
+    const viewportWidth = window.innerWidth;
+    setImageWidth(viewportWidth);
+    setIsMobile(viewportWidth <= 800);
     if (!isMobile) {
       updateIndex(currentIndex + 1);
     }
-    const viewportWidth = window.innerWidth;
-    setImageWidth(viewportWidth);
-    setIsMobile(viewportWidth <= 768); // Change this value to the maximum width for mobile devices
   }, []);
 
   return (
@@ -68,7 +71,7 @@ export default function Gallery() {
         <div className="absolute left-20 bottom-1/2 z-10 max-lg:left-0">
           <button
             onClick={() => updateIndex(currentIndex - 1)}
-            className="text-3xl bg-[red] text-white px-3 py-3  flex justify-center items-center translate-y-[50%]"
+            className="text-3xl bg-[red] text-white px-3 py-3  flex justify-center items-center translate-y-[50%] "
           >
             <Image src={"leftArrow.svg"} width={30} height={30} alt="arrow" />
           </button>
@@ -79,16 +82,73 @@ export default function Gallery() {
           style={{ display: "flex" }}
           className=" gap-[50px] max-lg:gap-0 max-lg:w-screen  mt-10 "
         >
-          {images.map((src, index) => (
-            <Image
-              key={index}
-              src={src}
-              width={400}
-              height={400}
-              alt={`image-${index}`}
-              className=" max-lg:w-screen  "
-            />
-          ))}
+          <motion.div
+            transition={{ type: "spring", duration: 1.5 }}
+            animate={controls}
+            style={{ display: "flex" }}
+            className="gap-[50px] max-lg:gap-0  mt-10 "
+          >
+            {images.map((src, index) => (
+              <div
+                key={index}
+                className={` max-lg:w-screen test cursor-pointer  transition-all h-[600px] w-[400px]    before:content-[' '] before:w-[400px] before:h-[522.5px] max-sm:before:h-[514px] before:bg-[#01010152] before:z-[500] before:absolute before:top-0`}
+              >
+                <Image
+                  key={index}
+                  src={src}
+                  width={isMobile ? imageWidth : 400}
+                  height={400}
+                  alt={`image-${index}`}
+                  className={` max-lg:w-screen `}
+                />
+                {src === "/oneOne.jpg" && (
+                  <div
+                    className={` absolute top-0 z-[2000]  h-[500px] w-[400px]  flex flex-col items-end justify-end gap-5 px-5 `}
+                  >
+                    <div>
+                      {" "}
+                      <p className="text-white  text-6xl font-bold  "> עיסקי</p>
+                    </div>
+                    <div>
+                      <p className="text-white  text-xl">
+                        בוילרים, צינורות , תשתיות
+                      </p>
+                    </div>
+                  </div>
+                )}{" "}
+                {src === "/imgTwo.jpg" && (
+                  <div
+                    className={` absolute top-0 z-[2000]  h-[500px] w-[400px]  flex flex-col items-end justify-end gap-5 px-5 `}
+                  >
+                    <div>
+                      {" "}
+                      <p className="text-white  text-6xl font-bold  "> עיסקי</p>
+                    </div>
+                    <div>
+                      <p className="text-white  text-xl">
+                        בוילרים, צינורות , תשתיות
+                      </p>
+                    </div>
+                  </div>
+                )}{" "}
+                {src === "/imgThree.jpg" && (
+                  <div
+                    className={` absolute top-0 z-[2000]  h-[500px] w-[400px]  flex flex-col items-end justify-end gap-5 px-5 `}
+                  >
+                    <div>
+                      {" "}
+                      <p className="text-white  text-6xl font-bold  "> עיסקי</p>
+                    </div>
+                    <div>
+                      <p className="text-white  text-xl">
+                        בוילרים, צינורות , תשתיות
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </motion.div>
         </motion.div>
       </div>
     </div>
