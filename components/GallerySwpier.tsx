@@ -47,9 +47,9 @@ export default function GallerySwpier() {
         speed={3000}
         modules={[Autoplay, Pagination, Navigation, FreeMode]}
       >
-        {initialImages.map((img) => {
+        {initialImages.map((img, index) => {
           return (
-            <SwiperSlide className="">
+            <SwiperSlide key={index} className="">
               <div className="imgSlider cursor-pointer">
                 <Image
                   src={img}
