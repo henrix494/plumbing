@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import Gallery from "@/components/Gallery";
 import Services from "@/components/Services";
 import Philosophy from "@/components/Philosophy";
+import GallerySwpier from "@/components/GallerySwpier";
 export default function Home() {
   return (
     <main className="">
@@ -20,7 +21,8 @@ export default function Home() {
           <Services />
         </div>
       </div>
-      <Gallery />
+      {/* <Gallery /> */}
+      <GallerySwpier />
       <Philosophy />
     </main>
   );

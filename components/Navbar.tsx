@@ -2,9 +2,14 @@
 import Image from "next/image";
 import { navBarLinks } from "@/const/const";
 import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 export default function Navbar() {
   const [isScrolling, setIsScrolling] = useState(false);
-
+  const [isMouseIn, setIsMouseIn] = useState({
+    element: "",
+    isIn: false,
+  });
   if (typeof window !== "undefined") {
     const scrollPosition = window.scrollY;
     window.addEventListener("scroll", () => {
@@ -17,6 +22,10 @@ export default function Navbar() {
       }
     });
   }
+  const pathname = usePathname();
+  const eleHover = (ele: string) => {
+    setIsMouseIn({ element: ele, isIn: true });
+  };
   return (
     <nav className=" w-full  ">
       {" "}
@@ -39,33 +48,50 @@ export default function Navbar() {
       </div>
       <div
         className={` max-sm:hidden z-[5000000] ${
-          isScrolling ? "mt-0" : "mt-5 "
+          isScrolling || pathname !== "/" ? "mt-0" : "mt-5 "
         }  flex  pt-16 transition-all h-[120px]   w-full justify-between fixed top-0 max-w-[1250px]  items-center`}
       >
         <div className=" z-[5000] ">
           <Image
             className="duration-500 transition-all ease-in-out"
             src={"/APSI-Logo-with-Lettering.png"}
-            width={isScrolling ? 150 : 200}
-            height={isScrolling ? 150 : 200}
+            width={isScrolling || pathname !== "/" ? 150 : 200}
+            height={isScrolling || pathname !== "/" ? 150 : 200}
             alt="logo"
           />
         </div>
         <div
           className={`  ${
-            isScrolling ? "opacity-1 h-[100px]" : "opacity-0 h-[200px]"
+            isScrolling || pathname !== "/"
+              ? "opacity-1 h-[100px]"
+              : "opacity-0 h-[200px]"
           } bg-[#09162b]  w-screen fixed  left-0 top-10 
          z-10 duration-500 transition-all ease-in-out`}
-        >
-          s
-        </div>
+        ></div>
         <div className="flex gap-10 text-2xl  z-[10] ">
           {" "}
           {navBarLinks.map((item) => {
             return (
-              <a key={item.name} className=" text-white">
-                {item.name}
-              </a>
+              <Link href={item.href}>
+                <button
+                  onMouseEnter={() => {
+                    eleHover(item.name);
+                  }}
+                  onMouseLeave={() => {
+                    eleHover("");
+                  }}
+                  key={item.name}
+                  className=" text-white cursor-pointer relative "
+                >
+                  {pathname === item.href && (
+                    <div className=" w-[25px] h-1 bg-[red] absolute bottom-[-10px] right-0"></div>
+                  )}
+                  {isMouseIn.element === item.name && isMouseIn.isIn && (
+                    <div className=" w-[25px] h-1 bg-[red] absolute bottom-[-10px] right-0"></div>
+                  )}
+                  {item.name}
+                </button>
+              </Link>
             );
           })}
         </div>
