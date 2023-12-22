@@ -72,7 +72,7 @@ export default function Navbar() {
           {" "}
           {navBarLinks.map((item) => {
             return (
-              <Link href={item.href}>
+              <Link href={item.href} key={item.name}>
                 <button
                   onMouseEnter={() => {
                     eleHover(item.name);
